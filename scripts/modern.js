@@ -163,6 +163,7 @@ class ScrollReveal {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    console.log('Activating animation for:', entry.target.className);
                     entry.target.classList.add('active');
                     // Unobserve after activation for performance
                     observer.unobserve(entry.target);
