@@ -13,7 +13,6 @@ COPY index.html /usr/share/nginx/html/
 COPY styles/ /usr/share/nginx/html/styles/
 COPY scripts/ /usr/share/nginx/html/scripts/
 COPY images/ /usr/share/nginx/html/images/
-COPY pages/ /usr/share/nginx/html/pages/
 
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
@@ -22,8 +21,8 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 6343
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:6343/ || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD ["wget", "-q", "-O", "/dev/null", "http://127.0.0.1:6343/"]
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]

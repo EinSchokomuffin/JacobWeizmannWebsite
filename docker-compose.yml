@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   jacob-weizman-website:
     build:
@@ -9,12 +7,6 @@ services:
     ports:
       - "6343:6343"
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:6343/"]
-      interval: 30s
-      timeout: 3s
-      retries: 3
-      start_period: 5s
     labels:
       - "com.jacob-weizman.description=Digital Detox Website"
       - "com.jacob-weizman.version=1.0"
