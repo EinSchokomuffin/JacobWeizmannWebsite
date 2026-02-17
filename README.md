@@ -81,16 +81,47 @@ jacob-weizman.com/
 
 ## 🛠️ Installation & Setup
 
-1. **Lokaler Test**:
+### Option 1: Docker (Empfohlen) 🐳
+
+1. **Mit Docker Compose**:
    ```bash
-   # Mit Python
-   python -m http.server 8000
+   docker-compose up -d
+   ```
+
+2. **Manuell mit Docker**:
+   ```bash
+   # Build
+   docker build -t jacob-weizman-website .
    
-   # Mit Node.js
+   # Run
+   docker run -d -p 6343:6343 --name jacob-weizman-web jacob-weizman-website
+   ```
+
+3. **Browser öffnen**:
+   ```
+   http://localhost:6343
+   ```
+
+4. **Container stoppen**:
+   ```bash
+   docker-compose down
+   # oder
+   docker stop jacob-weizman-web
+   ```
+
+### Option 2: Lokaler Test
+
+1. **Mit Python**:
+   ```bash
+   python -m http.server 8000
+   ```
+
+2. **Mit Node.js**:
+   ```bash
    npx serve
    ```
 
-2. **Browser öffnen**:
+3. **Browser öffnen**:
    ```
    http://localhost:8000
    ```
@@ -148,6 +179,31 @@ Das Formular ist aktuell als Demo implementiert. Für echte Funktionalität:
 
 ## 🚀 Deployment
 
+### Docker Deployment
+
+**Lokal testen**:
+```bash
+docker-compose up -d
+# Website läuft auf http://localhost:6343
+```
+
+**Production Deployment**:
+```bash
+# Build für Production
+docker build -t jacob-weizman-website:latest .
+
+# Push zu Docker Registry (optional)
+docker tag jacob-weizman-website:latest your-registry/jacob-weizman-website:latest
+docker push your-registry/jacob-weizman-website:latest
+
+# Deploy auf Server
+docker run -d \
+  --name jacob-weizman-web \
+  -p 6343:6343 \
+  --restart unless-stopped \
+  jacob-weizman-website:latest
+```
+
 ### GitHub Pages
 ```bash
 git add .
@@ -157,6 +213,9 @@ git push origin main
 
 ### Netlify / Vercel
 Einfach Repository verbinden und deployen.
+
+### Eigener Server
+Upload die Dateien via FTP/SFTP oder benutze die Docker-Variante.
 
 ## 📝 Nächste Schritte
 
