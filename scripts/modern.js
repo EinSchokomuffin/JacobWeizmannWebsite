@@ -146,7 +146,6 @@ class ScrollReveal {
     init() {
         // Fallback for browsers without IntersectionObserver
         if (!('IntersectionObserver' in window)) {
-            console.warn('IntersectionObserver not supported, activating all animations');
             this.elements.forEach(el => el.classList.add('active'));
             return;
         }
@@ -163,7 +162,6 @@ class ScrollReveal {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    console.log('✅ Activating animation for:', entry.target.className);
                     entry.target.classList.add('active');
                     // Force reflow to ensure animation triggers
                     void entry.target.offsetWidth;
@@ -179,14 +177,11 @@ class ScrollReveal {
             const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
             
             if (isVisible) {
-                console.log('⚡ Element already visible, activating immediately:', el.className);
                 el.classList.add('active');
             } else {
                 observer.observe(el);
             }
         });
-        
-        console.log(`ScrollReveal initialized with ${this.elements.length} elements`);
     }
 }
 
@@ -489,6 +484,4 @@ document.addEventListener('DOMContentLoaded', () => {
     new PageTransitions();
     
     document.body.style.visibility = 'visible';
-    
-    console.log('✨ Website initialized successfully!');
 });
