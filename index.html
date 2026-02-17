@@ -32,6 +32,21 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./styles/modern.css">
+    
+    <!-- Fallback for disabled JavaScript -->
+    <noscript>
+        <style>
+            .fade-in-up,
+            .reveal-left,
+            .reveal-right,
+            .reveal-up,
+            .reveal-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+        </style>
+    </noscript>
 </head>
 <body>
     <!-- Navigation -->
@@ -588,6 +603,6 @@
     </button>
 
     <!-- Scripts -->
-    <script src="./scripts/modern.js"></script>
+    <script src="./scripts/modern.js" defer></script>
 </body>
 </html>

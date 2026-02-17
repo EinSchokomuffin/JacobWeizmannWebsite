@@ -1295,6 +1295,20 @@ section {
     opacity: 0;
 }
 
+/* Fallback: Show content after 2s if JS doesn't load */
+@keyframes fadeInFallback {
+    0%, 90% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease forwards, fadeInFallback 2s ease forwards;
+}
+
 .fade-in-up.delay-1 {
     animation-delay: 0.2s;
 }
@@ -1314,6 +1328,14 @@ section {
 .reveal-scale {
     opacity: 0;
     transition: var(--transition-smooth);
+}
+
+/* Fallback: Show after 3s if JS doesn't activate */
+.reveal-left,
+.reveal-right,
+.reveal-up,
+.reveal-scale {
+    animation: fadeInFallback 3s ease forwards;
 }
 
 .reveal-left {

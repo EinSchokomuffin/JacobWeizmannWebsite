@@ -144,6 +144,13 @@ class ScrollReveal {
     }
     
     init() {
+        // Fallback for browsers without IntersectionObserver
+        if (!('IntersectionObserver' in window)) {
+            console.warn('IntersectionObserver not supported, activating all animations');
+            this.elements.forEach(el => el.classList.add('active'));
+            return;
+        }
+        
         this.setupObserver();
     }
     
@@ -157,11 +164,18 @@ class ScrollReveal {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    // Unobserve after activation for performance
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
         
-        this.elements.forEach(el => observer.observe(el));
+        this.elements.forEach(el => {
+            // Add a small delay to ensure smooth animation
+            observer.observe(el);
+        });
+        
+        console.log(`ScrollReveal initialized with ${this.elements.length} elements`);
     }
 }
 
