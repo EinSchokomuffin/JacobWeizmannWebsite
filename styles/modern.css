@@ -494,11 +494,44 @@ section {
     background: var(--bg-cream);
 }
 
+.about-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
 .about-content {
     display: grid;
-    grid-template-columns: 500px 1fr;
+    grid-template-columns: 400px 1fr;
     gap: 4rem;
     align-items: start;
+    margin-bottom: 4rem;
+}
+
+.about-image-wrapper {
+    position: relative;
+}
+
+.about-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transition: transform 0.6s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.02);
+}
+
+.about-image-decoration {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 150px;
+    height: 150px;
+    background: var(--primary-color);
+    opacity: 0.2;
+    border-radius: 50%;
+    z-index: -1;
 }
 
 .comparison-wrapper {
@@ -506,19 +539,21 @@ section {
     border-radius: 20px;
     padding: 2.5rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .comparison-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
 .comparison-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.2rem;
     background: var(--bg-cream);
     border-radius: 12px;
     transition: var(--transition-smooth);
@@ -534,7 +569,7 @@ section {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
@@ -547,16 +582,6 @@ section {
 .comparison-more {
     color: var(--primary-color);
     font-weight: 600;
-}
-
-.about-image-wrapper {
-    position: relative;
-}
-
-.about-image {
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 .about-image-decoration {
@@ -617,14 +642,24 @@ section {
         padding: 1.5rem;
     }
 
-    .comparison-item {
+    .comparison-grid {
         grid-template-columns: 1fr;
+    }
+
+    .comparison-item {
+        flex-direction: column;
         gap: 0.5rem;
     }
 
     .comparison-less,
     .comparison-more {
         font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .comparison-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
