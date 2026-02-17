@@ -1327,15 +1327,8 @@ section {
 .reveal-up,
 .reveal-scale {
     opacity: 0;
-    transition: var(--transition-smooth);
-}
-
-/* Fallback: Show after 3s if JS doesn't activate */
-.reveal-left,
-.reveal-right,
-.reveal-up,
-.reveal-scale {
-    animation: fadeInFallback 3s ease forwards;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity, transform;
 }
 
 .reveal-left {
@@ -1358,8 +1351,26 @@ section {
 .reveal-right.active,
 .reveal-up.active,
 .reveal-scale.active {
-    opacity: 1;
-    transform: translate(0) scale(1);
+    opacity: 1 !important;
+    transform: translate(0) scale(1) !important;
+}
+
+/* Fallback: Show after 3s if JS doesn't activate */
+@keyframes revealFallback {
+    0%, 90% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0) scale(1);
+    }
+}
+
+.reveal-left:not(.active),
+.reveal-right:not(.active),
+.reveal-up:not(.active),
+.reveal-scale:not(.active) {
+    animation: revealFallback 3.5s ease forwards;
 }
 
 .delay-1 {

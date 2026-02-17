@@ -156,15 +156,17 @@ class ScrollReveal {
     
     setupObserver() {
         const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.05,
+            rootMargin: '0px 0px -10px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    console.log('Activating animation for:', entry.target.className);
+                    console.log('✅ Activating animation for:', entry.target.className);
                     entry.target.classList.add('active');
+                    // Force reflow to ensure animation triggers
+                    void entry.target.offsetWidth;
                     // Unobserve after activation for performance
                     observer.unobserve(entry.target);
                 }
@@ -172,8 +174,16 @@ class ScrollReveal {
         }, observerOptions);
         
         this.elements.forEach(el => {
-            // Add a small delay to ensure smooth animation
-            observer.observe(el);
+            // Check if element is already in viewport
+            const rect = el.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+                console.log('⚡ Element already visible, activating immediately:', el.className);
+                el.classList.add('active');
+            } else {
+                observer.observe(el);
+            }
         });
         
         console.log(`ScrollReveal initialized with ${this.elements.length} elements`);
